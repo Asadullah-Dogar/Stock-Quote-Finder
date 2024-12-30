@@ -1,0 +1,241 @@
+<!--<!DOCTYPE HTML>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <title>Stock Quote Finder</title>-->
+<!--    <meta charset="utf-8" />-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />-->
+<!--    <link rel="stylesheet" href="assets/css/main.css" />-->
+<!--</head>-->
+<!--<body class="is-preload">-->
+
+<!--    &lt;!&ndash; Header &ndash;&gt;-->
+<!--    <header id="header">-->
+<!--        <h1>Stock Quote Finder</h1>-->
+<!--        <p>Enter a stock symbol to get real-time quotes for Open, High, Low, Last, and Volume.</p>-->
+<!--    </header>-->
+
+<!--&lt;!&ndash;	<div id="bg">&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="bg-image" style="background-image: url('/static/images/bg01.jpg');"></div>&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="bg-image" style="background-image: url('/static/images/bg02.jpg');"></div>&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="bg-image" style="background-image: url('/static/images/bg03.jpg');"></div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--<style>-->
+<!--    #bg {-->
+<!--        position: fixed;-->
+<!--        top: 0;-->
+<!--        left: 0;-->
+<!--        width: 100%;-->
+<!--        height: 100%;-->
+<!--        z-index: -1;-->
+<!--        overflow: hidden;-->
+<!--    }-->
+<!--    .bg-image {-->
+<!--        position: absolute;-->
+<!--        width: 100%;-->
+<!--        height: 100%;-->
+<!--        background-size: cover;-->
+<!--        background-position: center;-->
+<!--        opacity: 0;-->
+<!--        animation: slideshow 18s infinite;-->
+<!--    }-->
+<!--    .bg-image:nth-child(1) {-->
+<!--        animation-delay: 0s;-->
+<!--    }-->
+<!--    .bg-image:nth-child(2) {-->
+<!--        animation-delay: 6s;-->
+<!--    }-->
+<!--    .bg-image:nth-child(3) {-->
+<!--        animation-delay: 12s;-->
+<!--    }-->
+<!--    @keyframes slideshow {-->
+<!--        0%, 100% { opacity: 0; }-->
+<!--        33% { opacity: 1; }-->
+<!--    }-->
+<!--</style>-->
+
+
+<!--    &lt;!&ndash; Stock Quote Form &ndash;&gt;-->
+<!--    <form id="stock-form" method="post" action="/get_stock_quote">-->
+<!--        <input type="text" name="symbol" id="symbol" placeholder="Enter Stock Symbol (e.g., AAPL)" required />-->
+<!--        <input type="submit" value="Get Quote" />-->
+<!--    </form>-->
+
+<!--    &lt;!&ndash; Result Section &ndash;&gt;-->
+<!--    <section id="result">-->
+<!--        <p id="result-content" style="display:none;"></p>-->
+<!--        <p id="error-content" style="display:none;color:red;"></p>-->
+<!--    </section>-->
+
+<!--    &lt;!&ndash; Footer &ndash;&gt;-->
+<!--    <footer id="footer">-->
+<!--        <ul class="icons">-->
+<!--            <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>-->
+<!--            <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>-->
+<!--            <li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>-->
+<!--            <li><a href="#" class="icon fa-envelope"><span class="label">Email</span></a></li>-->
+<!--        </ul>-->
+<!--        <ul class="copyright">-->
+<!--            <li>&copy; Your Company.</li><li>Credits: <a href="http://html5up.net">HTML5 UP</a></li>-->
+<!--        </ul>-->
+<!--    </footer>-->
+
+<!--    &lt;!&ndash; Scripts &ndash;&gt;-->
+<!--&lt;!&ndash;    <script src="assets/js/main.js"></script>&ndash;&gt;-->
+<!--&lt;!&ndash;    <script>&ndash;&gt;-->
+<!--&lt;!&ndash;        // Handle form submission&ndash;&gt;-->
+<!--&lt;!&ndash;        document.getElementById('stock-form').addEventListener('submit', async (e) => {&ndash;&gt;-->
+<!--&lt;!&ndash;            e.preventDefault();&ndash;&gt;-->
+<!--&lt;!&ndash;            const symbol = document.getElementById('symbol').value.trim();&ndash;&gt;-->
+<!--&lt;!&ndash;            const resultContent = document.getElementById('result-content');&ndash;&gt;-->
+<!--&lt;!&ndash;            const errorContent = document.getElementById('error-content');&ndash;&gt;-->
+
+<!--&lt;!&ndash;            resultContent.style.display = 'none';&ndash;&gt;-->
+<!--&lt;!&ndash;            errorContent.style.display = 'none';&ndash;&gt;-->
+
+<!--&lt;!&ndash;            try {&ndash;&gt;-->
+<!--&lt;!&ndash;                const response = await fetch('/get_stock_quote', {&ndash;&gt;-->
+<!--&lt;!&ndash;                    method: 'POST',&ndash;&gt;-->
+<!--&lt;!&ndash;                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },&ndash;&gt;-->
+<!--&lt;!&ndash;                    body: new URLSearchParams({ symbol })&ndash;&gt;-->
+<!--&lt;!&ndash;                });&ndash;&gt;-->
+
+<!--&lt;!&ndash;                if (!response.ok) {&ndash;&gt;-->
+<!--&lt;!&ndash;                    const errorData = await response.json();&ndash;&gt;-->
+<!--&lt;!&ndash;                    throw new Error(errorData.error || 'Unknown error occurred');&ndash;&gt;-->
+<!--&lt;!&ndash;                }&ndash;&gt;-->
+
+<!--&lt;!&ndash;                const data = await response.json();&ndash;&gt;-->
+<!--&lt;!&ndash;                resultContent.innerHTML = `&ndash;&gt;-->
+<!--&lt;!&ndash;                    <strong>Symbol:</strong> ${data.symbol}<br>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <strong>Open:</strong> ${data.open}<br>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <strong>High:</strong> ${data.high}<br>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <strong>Low:</strong> ${data.low}<br>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <strong>Last Price:</strong> ${data.last}<br>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <strong>Volume:</strong> ${data.volume}<br>&ndash;&gt;-->
+<!--&lt;!&ndash;                `;&ndash;&gt;-->
+<!--&lt;!&ndash;                resultContent.style.display = 'block';&ndash;&gt;-->
+<!--&lt;!&ndash;            } catch (error) {&ndash;&gt;-->
+<!--&lt;!&ndash;                errorContent.textContent = error.message;&ndash;&gt;-->
+<!--&lt;!&ndash;                errorContent.style.display = 'block';&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+<!--&lt;!&ndash;        });&ndash;&gt;-->
+<!--&lt;!&ndash;    </script>&ndash;&gt;-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>Stock Quote Finder</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<!--    <link rel="stylesheet" href="assets/css/main.css" />-->
+    <link rel="stylesheet" href="/static/assets/css/main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+</head>
+<body class="is-preload">
+
+    <!-- Header -->
+    <header id="header">
+        <h1>Stock Quote Finder</h1>
+        <p>Enter a stock symbol to get real-time quotes for Open, High, Low, Last, and Volume.</p>
+    </header>
+
+    <!-- Background Styling -->
+<!--    <div id="bg">-->
+<!--        <div class="bg-image" style="background-image: url('/static/images/bg01.jpg');"></div>-->
+<!--        <div class="bg-image" style="background-image: url('/static/images/bg02.jpg');"></div>-->
+<!--        <div class="bg-image" style="background-image: url('/static/images/bg03.jpg');"></div>-->
+<!--    </div>-->
+
+    <style>
+        #bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .bg-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            animation: slideshow 18s infinite;
+        }
+        .bg-image:nth-child(1) { animation-delay: 0s; }
+        .bg-image:nth-child(2) { animation-delay: 6s; }
+        .bg-image:nth-child(3) { animation-delay: 12s; }
+        @keyframes slideshow {
+            0%, 100% { opacity: 0; }
+            33% { opacity: 1; }
+        }
+    </style>
+
+    <!-- Stock Quote Form -->
+    <form id="stock-form" method="post" action="/get_stock_quote">
+        <label for="symbol"></label><input type="text" name="symbol" id="symbol" placeholder="Enter Stock Symbol (e.g., AAPL)" required />
+        <input type="submit" value="Get Quote" />
+    </form>
+
+    <!-- Result Section -->
+    {% if result %}
+        <section id="result">
+            <p><strong>Symbol:</strong> {{ result.symbol }}</p>
+            <p><strong>Open:</strong> {{ result.open }}</p>
+            <p><strong>High:</strong> {{ result.high }}</p>
+            <p><strong>Low:</strong> {{ result.low }}</p>
+            <p><strong>Last Price:</strong> {{ result.last }}</p>
+            <p><strong>Volume:</strong> {{ result.volume }}</p>
+        </section>
+    {% elif error %}
+        <section id="error">
+            <p style="color: red;">{{ error }}</p>
+        </section>
+    {% endif %}
+
+    <!-- Footer -->
+    <footer id="footer">
+        <ul class="icons">
+        <li><a href="#" class="fab fa-twitter"><span class="label">Twitter</span></a></li>
+        <li><a href="#" class="fab fa-instagram"><span class="label">Instagram</span></a></li>
+        <li><a href="#" class="fab fa-github"><span class="label">GitHub</span></a></li>
+        <li><a href="#" class="fas fa-envelope"><span class="label">Email</span></a></li>
+    </ul>
+        <ul class="copyright">
+            <li>&copy; Your Company.</li><li>Credits: <a href="#">Asad Ullah Dogar</a></li>
+        </ul>
+    </footer>
+
+</body>
+</html>
